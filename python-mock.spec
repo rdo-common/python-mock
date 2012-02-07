@@ -37,7 +37,7 @@ rm -rf $RPM_BUILD_ROOT
  
 %files
 %doc docs/ README.txt PKG-INFO LICENSE.txt
-%{python_sitelib}/*.egg-info/
+%{python_sitelib}/*.egg-info
 %{python_sitelib}/%{mod_name}.py*
 
 
