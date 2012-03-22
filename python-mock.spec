@@ -1,7 +1,7 @@
 %global mod_name mock
 
 Name:           python-mock
-Version:        0.7.2
+Version:        0.8.0
 Release:        1%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
@@ -42,5 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Mar 22 2012 Praveen Kumar <kumarpraveen.nitdgp@gmail.com> - 0.8.0-1
+- Updated to new version
+
 * Fri Jul 22 2011 Praveen Kumar <kumarpraveen.nitdgp@gmail.com> - 0.7.2-1
 - Initial RPM release
