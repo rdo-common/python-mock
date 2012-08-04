@@ -6,7 +6,7 @@
 
 Name:           python-mock
 Version:        0.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 Group:          Development/Libraries
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Sat Aug 04 2012 David Malcolm <dmalcolm@redhat.com> - 0.8.0-4
+- rebuild for https://fedoraproject.org/wiki/Features/Python_3.3
+
 * Sat Jul 21 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
