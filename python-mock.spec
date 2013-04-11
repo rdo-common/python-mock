@@ -18,6 +18,7 @@ Source1:        LICENSE.txt
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
+BuildRequires:  python-unittest2
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
@@ -100,6 +101,7 @@ popd
 * Thu Apr 11 2013 Luke Macken <lmacken@redhat.com> - 1.0.1-1
 - Update to 1.0.1
 - Run the test suite
+- Add python-unittest2 as a build requirement
 
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
