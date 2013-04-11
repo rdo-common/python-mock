@@ -5,8 +5,8 @@
 %global mod_name mock
 
 Name:           python-mock
-Version:        0.8.0
-Release:        5%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 Group:          Development/Libraries
@@ -16,10 +16,12 @@ Source0:        http://pypi.python.org/packages/source/m/%{mod_name}/%{mod_name}
 Source1:        LICENSE.txt
 
 BuildArch:      noarch
-BuildRequires:  python-devel
+BuildRequires:  python2-devel
+BuildRequires:  python-setuptools
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 %endif
 
 
@@ -65,6 +67,10 @@ popd
 %endif
 
 
+%check
+%{__python} setup.py test
+
+
 %install
 rm -rf $RPM_BUILD_ROOT
 %if 0%{?with_python3}
@@ -91,6 +97,10 @@ popd
 
 
 %changelog
+* Thu Apr 11 2013 Luke Macken <lmacken@redhat.com> - 1.0.1-1
+- Update to 1.0.1
+- Run the test suite
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
