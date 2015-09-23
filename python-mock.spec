@@ -6,7 +6,7 @@
 
 Name:           python-mock
 Version:        1.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 Group:          Development/Libraries
@@ -98,6 +98,9 @@ popd
 
 
 %changelog
+* Wed Sep 23 2015 Robert Kuska <rkuska@redhat.com> - 1.0.1-6
+- Rebuilt for Python3.5 rebuild
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
