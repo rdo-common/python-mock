@@ -6,7 +6,7 @@
 
 Name:           python-mock
 Version:        1.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 Group:          Development/Libraries
@@ -18,7 +18,9 @@ Source1:        LICENSE.txt
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
+%if 0%{?rhel} <= 6
 BuildRequires:  python-unittest2
+%endif
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
@@ -98,6 +100,9 @@ popd
 
 
 %changelog
+* Mon Nov 02 2015 Praveen Kumar <kumarpraveen.nitdgp@gmail.com> 1.0.1-7
+- Fix #1276771
+
 * Wed Sep 23 2015 Robert Kuska <rkuska@redhat.com> - 1.0.1-6
 - Rebuilt for Python3.5 rebuild
 
