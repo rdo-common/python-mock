@@ -9,7 +9,7 @@
 
 Name:           python-mock
 Version:        1.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
