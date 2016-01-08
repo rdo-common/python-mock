@@ -1,6 +1,9 @@
-%if 0%{?fedora} > 12 || 0%{?rhel} > 6
+%if 0%{?fedora} || 0%{?rhel} > 6
 %global with_python3 1
 %endif
+
+# Not yet in Fedora buildroot
+%{!?python3_pkgversion:%global python3_pkgversion 3}
 
 %global mod_name mock
 
@@ -9,7 +12,6 @@ Version:        1.0.1
 Release:        8%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
-Group:          Development/Libraries
 License:        BSD
 URL:            http://www.voidspace.org.uk/python/%{mod_name}/
 Source0:        http://pypi.python.org/packages/source/m/%{mod_name}/%{mod_name}-%{version}.tar.gz
@@ -18,13 +20,16 @@ Source1:        LICENSE.txt
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
-%if 0%{?rhel} <= 6
+# For tests
+%if 0%{?rhel} <= 7
 BuildRequires:  python-unittest2
 %endif
 
 %if 0%{?with_python3}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+# For tests
+#BuildRequires:  python%{python3_pkgversion}-unittest2
 %endif
 
 
@@ -35,18 +40,27 @@ action, you can make assertions about which methods / attributes were used and
 arguments they were called with. You can also specify return values and set
 needed attributes in the normal way.
 
-%if 0%{?with_python3}
-%package -n python3-mock
+%package -n python2-mock
 Summary:        A Python Mocking and Patching Library for Testing
-Group:          Development/Libraries
+%{?python_provide:%python_provide python2-%{mod_name}}
 
-%description -n python3-mock
+%description -n python2-mock
+Mock is a Python module that provides a core mock class. It removes the need
+to create a host of stubs throughout your test suite. After performing an
+action, you can make assertions about which methods / attributes were used and
+arguments they were called with. You can also specify return values and set
+
+%if 0%{?with_python3}
+%package -n python%{python3_pkgversion}-mock
+Summary:        A Python Mocking and Patching Library for Testing
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{mod_name}}
+
+%description -n python%{python3_pkgversion}-mock
 Mock is a Python module that provides a core mock class. It removes the need
 to create a host of stubs throughout your test suite. After performing an
 action, you can make assertions about which methods / attributes were used and
 arguments they were called with. You can also specify return values and set
 needed attributes in the normal way.
-
 %endif
 
 
@@ -54,45 +68,33 @@ needed attributes in the normal way.
 %setup -q -n %{mod_name}-%{version}
 cp -p %{SOURCE1} .
 
-%if 0%{?with_python3}
-rm -rf %{py3dir}
-cp -ap . %{py3dir}
-%endif
-
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" %{__python} setup.py build
-
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py build
-popd
-%endif
+%{py2_build}
+%{py3_build}
 
 
-#check
-#{__python} setup.py test
+%check
+%{__python2} setup.py test
+# Failing
+#{__python3} setup.py test
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
-popd
-%endif
-
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+%{py3_install}
+%{py2_install}
 
  
-%files
-%doc docs/ README.txt PKG-INFO LICENSE.txt
-%{python_sitelib}/*.egg-info
-%{python_sitelib}/%{mod_name}.py*
+%files -n python2-mock
+%license LICENSE.txt
+%doc docs/* README.txt PKG-INFO
+%{python2_sitelib}/*.egg-info
+%{python2_sitelib}/%{mod_name}.py*
 
 %if 0%{?with_python3}
-%files -n python3-mock
-%doc docs/ README.txt PKG-INFO LICENSE.txt
+%files -n python%{python3_pkgversion}-mock
+%license LICENSE.txt
+%doc docs/* README.txt PKG-INFO
 %{python3_sitelib}/*.egg-info
 %{python3_sitelib}/%{mod_name}.py*
 %{python3_sitelib}/__pycache__/%{mod_name}*
@@ -100,6 +102,10 @@ popd
 
 
 %changelog
+* Wed Jan 6 2016 Orion Poplawski <orion@cora.nwra.com> - 1.0.1-9
+- Modernize spec
+- Run python2 tests, python3 failing
+
 * Thu Nov 12 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
 
