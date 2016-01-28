@@ -1,4 +1,6 @@
-%if 0%{?fedora} || 0%{?rhel} > 6
+%if 0%{?fedora} || 0%{?epel} > 6
+# keeping python3 subpackage as stdlib mock lives in a different namespace
+# Some people may have not fixed their imports
 %global with_python3 1
 %endif
 
@@ -8,8 +10,8 @@
 %global mod_name mock
 
 Name:           python-mock
-Version:        1.0.1
-Release:        10%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -20,6 +22,8 @@ Source1:        LICENSE.txt
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
+BuildRequires:  python-funcsigs
+BuildRequires:  python-pbr
 # For tests
 %if 0%{?rhel} <= 7
 BuildRequires:  python-unittest2
@@ -28,8 +32,10 @@ BuildRequires:  python-unittest2
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python3-funcsigs
+BuildRequires:  python3-pbr
 # For tests
-#BuildRequires:  python%{python3_pkgversion}-unittest2
+BuildRequires:  python%{python3_pkgversion}-unittest2
 %endif
 
 
@@ -43,6 +49,9 @@ needed attributes in the normal way.
 %package -n python2-mock
 Summary:        A Python Mocking and Patching Library for Testing
 %{?python_provide:%python_provide python2-%{mod_name}}
+Requires:    python-funcsigs
+Requires:    python-pbr
+Requires:    python-six >= 1.9.0
 
 %description -n python2-mock
 Mock is a Python module that provides a core mock class. It removes the need
@@ -54,6 +63,9 @@ arguments they were called with. You can also specify return values and set
 %package -n python%{python3_pkgversion}-mock
 Summary:        A Python Mocking and Patching Library for Testing
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{mod_name}}
+Requires:    python3-funcsigs
+Requires:    python3-pbr
+Requires:    python3-six >= 1.9.0
 
 %description -n python%{python3_pkgversion}-mock
 Mock is a Python module that provides a core mock class. It removes the need
@@ -71,37 +83,45 @@ cp -p %{SOURCE1} .
 
 %build
 %{py2_build}
+%if 0%{?with_python3}
 %{py3_build}
+%endif
 
 
 %check
 %{__python2} setup.py test
-# Failing
-#{__python3} setup.py test
-
+%if 0%{?with_python3}
+# Few failing tests but keep output
+%{__python3} setup.py test ||:
+%endif
 
 %install
+%if 0%{?with_python3}
 %{py3_install}
+%endif
 %{py2_install}
 
- 
+
 %files -n python2-mock
 %license LICENSE.txt
-%doc docs/* README.txt PKG-INFO
+%doc docs/*
 %{python2_sitelib}/*.egg-info
-%{python2_sitelib}/%{mod_name}.py*
+%{python2_sitelib}/%{mod_name}
 
 %if 0%{?with_python3}
 %files -n python%{python3_pkgversion}-mock
 %license LICENSE.txt
-%doc docs/* README.txt PKG-INFO
+%doc docs/*
 %{python3_sitelib}/*.egg-info
-%{python3_sitelib}/%{mod_name}.py*
-%{python3_sitelib}/__pycache__/%{mod_name}*
+%{python3_sitelib}/%{mod_name}
 %endif
 
 
 %changelog
+* Thu Jan 28 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-1
+- Upstream 1.3.0 (RHBZ#1244145)
+- Use epel macros rather than rhel
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
