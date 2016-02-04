@@ -9,7 +9,7 @@
 
 Name:           python-mock
 Version:        1.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -102,6 +102,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Wed Jan 6 2016 Orion Poplawski <orion@cora.nwra.com> - 1.0.1-9
 - Modernize spec
 - Run python2 tests, python3 failing
