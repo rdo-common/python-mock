@@ -118,7 +118,7 @@ cp -p %{SOURCE1} .
 
 
 %changelog
-* Thu Jan 28 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-1
+* Fri Feb 26 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-1
 - Upstream 1.3.0 (RHBZ#1244145)
 - Use epel macros rather than rhel
 
