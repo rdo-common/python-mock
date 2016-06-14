@@ -10,14 +10,13 @@
 %global mod_name mock
 
 Name:           python-mock
-Version:        1.3.0
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
 URL:            http://www.voidspace.org.uk/python/%{mod_name}/
 Source0:        http://pypi.python.org/packages/source/m/%{mod_name}/%{mod_name}-%{version}.tar.gz
-Source1:        LICENSE.txt
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -78,7 +77,6 @@ needed attributes in the normal way.
 
 %prep
 %setup -q -n %{mod_name}-%{version}
-cp -p %{SOURCE1} .
 
 
 %build
@@ -118,6 +116,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Tue Jun 14 2016 Praveen Kumar <kumarpraveen.nitdgp@gmail.com> - 2.0.0-1
+- Upstream 2.0.0 (RHBZ#1244145)
+
 * Fri Feb 26 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-1
 - Upstream 1.3.0 (RHBZ#1244145)
 - Use epel macros rather than rhel
