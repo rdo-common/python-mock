@@ -11,7 +11,7 @@
 
 Name:           python-mock
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -104,20 +104,21 @@ cp -p %{SOURCE1} .
 
 %files -n python2-mock
 %license LICENSE.txt
-%doc docs/*
 %{python2_sitelib}/*.egg-info
 %{python2_sitelib}/%{mod_name}
 
 %if 0%{?with_python3}
 %files -n python%{python3_pkgversion}-mock
 %license LICENSE.txt
-%doc docs/*
 %{python3_sitelib}/*.egg-info
 %{python3_sitelib}/%{mod_name}
 %endif
 
 
 %changelog
+* Tue Jun 28 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-2
+- Drop useless documentation (RHBZ#1350866)
+
 * Fri Feb 26 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-1
 - Upstream 1.3.0 (RHBZ#1244145)
 - Use epel macros rather than rhel
