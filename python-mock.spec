@@ -10,8 +10,8 @@
 %global mod_name mock
 
 Name:           python-mock
-Version:        1.3.0
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -116,6 +116,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Tue Aug 23 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 2.0.0-1
+- Upstream 2.0.0
+
 * Tue Jun 28 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-2
 - Drop useless documentation (RHBZ#1350866)
 
