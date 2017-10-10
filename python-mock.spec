@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?epel} > 6
+%if 0%{?fedora} || 0%{?rhel} > 6
 # keeping python3 subpackage as stdlib mock lives in a different namespace
 # Some people may have not fixed their imports
 %global with_python3 1
@@ -11,7 +11,7 @@
 
 Name:           python-mock
 Version:        2.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -24,9 +24,7 @@ BuildRequires:  python-setuptools
 BuildRequires:  python-funcsigs
 BuildRequires:  python-pbr
 # For tests
-%if 0%{?rhel} <= 7
 BuildRequires:  python-unittest2
-%endif
 
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -116,6 +114,9 @@ needed attributes in the normal way.
 
 
 %changelog
+* Tue Oct 10 2017 Troy Dawson <tdawson@redhat.com> - 2.0.0-6
+- Cleanup spec file conditionals
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
