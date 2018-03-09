@@ -11,7 +11,7 @@
 
 Name:           python-mock
 Version:        2.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -20,11 +20,11 @@ Source0:        http://pypi.python.org/packages/source/m/%{mod_name}/%{mod_name}
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
-BuildRequires:  python-setuptools
-BuildRequires:  python-funcsigs
-BuildRequires:  python-pbr
+BuildRequires:  python2-setuptools
+BuildRequires:  python2-funcsigs
+BuildRequires:  python2-pbr
 # For tests
-BuildRequires:  python-unittest2
+BuildRequires:  python2-unittest2
 
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -46,9 +46,9 @@ needed attributes in the normal way.
 %package -n python2-mock
 Summary:        A Python Mocking and Patching Library for Testing
 %{?python_provide:%python_provide python2-%{mod_name}}
-Requires:    python-funcsigs
-Requires:    python-pbr
-Requires:    python-six >= 1.9.0
+Requires:    python2-funcsigs
+Requires:    python2-pbr
+Requires:    python2-six >= 1.9.0
 
 %description -n python2-mock
 Mock is a Python module that provides a core mock class. It removes the need
@@ -114,6 +114,10 @@ needed attributes in the normal way.
 
 
 %changelog
+* Fri Mar 09 2018 Iryna Shcherbina <ishcherb@redhat.com> - 2.0.0-8
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
