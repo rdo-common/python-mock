@@ -11,7 +11,7 @@
 
 Name:           python-mock
 Version:        2.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -29,7 +29,6 @@ BuildRequires:  python2-unittest2
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python3-funcsigs
 BuildRequires:  python3-pbr
 # For tests
 BuildRequires:  python%{python3_pkgversion}-unittest2
@@ -60,7 +59,6 @@ arguments they were called with. You can also specify return values and set
 %package -n python%{python3_pkgversion}-mock
 Summary:        A Python Mocking and Patching Library for Testing
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{mod_name}}
-Requires:    python3-funcsigs
 Requires:    python3-pbr
 Requires:    python3-six >= 1.9.0
 
@@ -114,6 +112,9 @@ needed attributes in the normal way.
 
 
 %changelog
+* Fri Aug 17 2018 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-11
+- Don't require funcsigs on python3, it's part of the standard library
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
