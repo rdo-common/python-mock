@@ -11,7 +11,7 @@
 
 Name:           python-mock
 Version:        2.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
@@ -85,8 +85,7 @@ needed attributes in the normal way.
 %check
 %{__python2} setup.py test
 %if 0%{?with_python3}
-# Few failing tests but keep output
-%{__python3} setup.py test ||:
+%{__python3} -m unittest2 discover
 %endif
 
 %install
@@ -112,6 +111,9 @@ needed attributes in the normal way.
 
 
 %changelog
+* Fri Oct 26 2018 Petr Viktorin <pviktori@redhat.com> - 2.0.0-12
+- Run tests for Python 3
+
 * Fri Aug 17 2018 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-11
 - Don't require funcsigs on python3, it's part of the standard library
 
