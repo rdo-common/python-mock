@@ -10,13 +10,13 @@
 %global mod_name mock
 
 Name:           python-mock
-Version:        2.0.0
-Release:        13%{?dist}
+Version:        3.0.5
+Release:        1%{?dist}
 Summary:        A Python Mocking and Patching Library for Testing
 
 License:        BSD
 URL:            http://www.voidspace.org.uk/python/%{mod_name}/
-Source0:        http://pypi.python.org/packages/source/m/%{mod_name}/%{mod_name}-%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/m/%{mod_name}/%{mod_name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
@@ -24,14 +24,14 @@ BuildRequires:  python2-setuptools
 BuildRequires:  python2-funcsigs
 BuildRequires:  python2-pbr
 # For tests
-BuildRequires:  python2-unittest2
+BuildRequires:  python2-pytest
 
 %if 0%{?with_python3}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python3-pbr
 # For tests
-BuildRequires:  python%{python3_pkgversion}-unittest2
+BuildRequires:  python%{python3_pkgversion}-pytest
 %endif
 
 
@@ -85,7 +85,7 @@ needed attributes in the normal way.
 %check
 %{__python2} setup.py test
 %if 0%{?with_python3}
-%{__python3} -m unittest2 discover
+%{__python3} setup.py test
 %endif
 
 %install
@@ -97,20 +97,23 @@ needed attributes in the normal way.
 
 %files -n python2-mock
 %license LICENSE.txt
-%doc docs/*
+%doc README.rst
 %{python2_sitelib}/*.egg-info
 %{python2_sitelib}/%{mod_name}
 
 %if 0%{?with_python3}
 %files -n python%{python3_pkgversion}-mock
 %license LICENSE.txt
-%doc docs/*
+%doc README.rst
 %{python3_sitelib}/*.egg-info
 %{python3_sitelib}/%{mod_name}
 %endif
 
 
 %changelog
+* Mon Jul 08 2019 Yatin Karel <ykarel@redhat.com> - 3.0.5-1
+- Update to 3.0.5 (RHBZ#1721075)
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
