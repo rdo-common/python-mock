@@ -1,4 +1,4 @@
-%if 0%{?fedora} || 0%{?rhel} > 6
+%if 0%{?fedora} || 0%{?rhel} > 7
 # keeping python3 subpackage as stdlib mock lives in a different namespace
 # Some people may have not fixed their imports
 %global with_python3 1
